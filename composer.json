@@ -1,0 +1,16 @@
+{
+    "name": "knight/knight",
+    "description": "This is knight framework",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Manish Jakhode<manish.jakhode@knights.com>"
+        }
+    ],
+    "require": {}
+}
