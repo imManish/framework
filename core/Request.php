@@ -17,10 +17,11 @@ class Request
 
     public function method()
     {
+        //var_dump(__METHOD__);
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
-    public function getBody()
+    public function all()
     {
         if($this->method() === 'get')
             foreach($_GET as $key => $value)

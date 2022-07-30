@@ -42,21 +42,20 @@ class Router
      */
     public function resolve()
     {
-
         $path = $this->request->getPath();
         $this->method = $this->request->method();
         $callback = $this->routes[$this->method][$path] ?? false;
-        //var_dump($callback);
-
+        // check callback false
         if($callback === false) {
             $this->response->setStatusCode(404);
             return $this->renderView('error/_404');
         }
-
+        // check callback is string
         if(is_string($callback))
         {
             return $this->renderView($callback);
         }
+        // check callback clouser
         return call_user_func($this->isCheck($callback), $this->request);
     }
 
@@ -66,10 +65,8 @@ class Router
      */
     public function renderView($view, array $params = [])
     {
-
         $layoutContent = $this->layoutContent();
         $viewContent = $this->renderOnlyView($view, $params);
-
         return str_replace('{{content}}',$viewContent, $layoutContent);
     }
 
@@ -85,8 +82,9 @@ class Router
      */
     protected function layoutContent()
     {
+        $layout = Application::$app->controller->layout;
         ob_start();
-        include_once Application::$ROOT_DIR."/resources/views/layouts/layout.knight.html";
+        include_once Application::$ROOT_DIR."/resources/views/layouts/$layout.knight.html";
         return ob_get_clean();
     }
 
@@ -112,7 +110,7 @@ class Router
     private function isCheck($callback)
     {
         if(is_array($callback))
-            $callback[0] = new $callback[0];
+            $callback[0] = Application::$app->controller = new $callback[0];
 
         return $callback;
     }
