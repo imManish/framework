@@ -2,6 +2,10 @@
     "name": "knight/knight",
     "description": "This is knight framework",
     "license": "MIT",
+    "require-dev": {
+        "php" : "8.*",
+        "squizlabs/php_codesniffer": "3.*"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "./"
