@@ -1,6 +1,11 @@
 <?php
 namespace App\Core;
 
+use App\Core\Routing\Router;
+use App\Core\Http\Request;
+use App\Core\Http\Response;
+use App\Core\Routing\Controller;
+
 class Application
 {
     /**
@@ -34,9 +39,16 @@ class Application
     public Controller $controller;
 
     /**
+     * @var string
+     */
+    public string $layout = '_base';
+
+
+    /**
      * construct and initialize router.
      */
-    public function __construct($rootPath) {
+    public function __construct($rootPath)
+    {
         self::$app = $this;
         self::$ROOT_DIR = $rootPath;
         $this->request = new Request();
@@ -44,10 +56,14 @@ class Application
         $this->router = new Router($this->request, $this->response);
     }
 
+
     /**
-     * @return void
+     * The `run()` function is the entry point of the application.
+     * It calls the `resolve()` function of the `Router` class,
+     * which is responsible for resolving the request
      */
-    public function run() {
+    public function run(): void
+    {
         echo $this->router->resolve();
     }
 
@@ -66,5 +82,4 @@ class Application
     {
         $this->controller = $controller;
     }
-
 }
