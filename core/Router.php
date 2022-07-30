@@ -1,9 +1,12 @@
 <?php
-namespace app\core;
-use Exception;
+namespace App\Core;
+use App\Core\Traits\GetTrait;
+use App\Core\Traits\PostTrait;
 
 class Router
 {
+    use GetTrait, PostTrait;
+
     /**
      * @var array
      */
@@ -35,34 +38,13 @@ class Router
     }
 
     /**
-     * @param $path
-     * @param $callback
-     * @return void
-     */
-    public function get($path, $callback)
-    {
-        $this->routes['get'][$path] = $callback;
-    }
-
-    /**
-     * @param $path
-     * @param $callback
-     * @return void
-     */
-    public function post($path, $callback)
-    {
-        //var_dump($this->method);
-        $this->routes['post'][$path] = $callback;
-    }
-
-    /**
      * @return array|false|mixed|string|string[]
      */
     public function resolve()
     {
-        $path = $this->request->getPath();
-        $this->method = $this->request->getMethod();
 
+        $path = $this->request->getPath();
+        $this->method = $this->request->method();
         $callback = $this->routes[$this->method][$path] ?? false;
         //var_dump($callback);
 
@@ -75,19 +57,18 @@ class Router
         {
             return $this->renderView($callback);
         }
-
-        return call_user_func([new $callback[0], $callback[1]]);
-
+        return call_user_func($this->isCheck($callback), $this->request);
     }
 
     /**
      * @param $view
      * @return array|false|string|string[]
      */
-    public function renderView($view)
+    public function renderView($view, array $params = [])
     {
+
         $layoutContent = $this->layoutContent();
-        $viewContent = $this->renderOnlyView($view);
+        $viewContent = $this->renderOnlyView($view, $params);
 
         return str_replace('{{content}}',$viewContent, $layoutContent);
     }
@@ -113,11 +94,27 @@ class Router
      * @param $view
      * @return false|string
      */
-    protected function renderOnlyView($view)
+    protected function renderOnlyView($view, $params)
     {
+        foreach($params as $key => $value)
+            $$key = $value;
+        //var_dump($name);
+
         ob_start();
         include_once Application::$ROOT_DIR."/resources/views/$view.knight.html";
         return ob_get_clean();
-    } 
+    }
+
+    /**
+     * @param $callback
+     * @return mixed
+     */
+    private function isCheck($callback)
+    {
+        if(is_array($callback))
+            $callback[0] = new $callback[0];
+
+        return $callback;
+    }
 
 }
