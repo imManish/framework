@@ -4,9 +4,12 @@ namespace app\core;
 
 class Response
 {
-
-    public function setStatusCode($code)
+    /**
+     * @param $code
+     * @return bool|int
+     */
+    public function setStatusCode(int $code)
     {
-        return http_response_code($code);
+        http_response_code($code);
     }
 }

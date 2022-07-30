@@ -14,26 +14,50 @@ class Router
      */
     private string $method = 'get';
 
+    /**
+     * @var Request
+     */
     public Request $request;
+
+    /**
+     * @var Response
+     */
     public Response $response;
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     */
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
     }
 
+    /**
+     * @param $path
+     * @param $callback
+     * @return void
+     */
     public function get($path, $callback)
     {
         $this->routes['get'][$path] = $callback;
     }
 
+    /**
+     * @param $path
+     * @param $callback
+     * @return void
+     */
     public function post($path, $callback)
     {
         //var_dump($this->method);
         $this->routes['post'][$path] = $callback;
     }
 
+    /**
+     * @return array|false|mixed|string|string[]
+     */
     public function resolve()
     {
         $path = $this->request->getPath();
@@ -51,10 +75,15 @@ class Router
         {
             return $this->renderView($callback);
         }
-        var_dump($callback);
-        return call_user_func($callback);
+
+        return call_user_func([new $callback[0], $callback[1]]);
+
     }
 
+    /**
+     * @param $view
+     * @return array|false|string|string[]
+     */
     public function renderView($view)
     {
         $layoutContent = $this->layoutContent();
@@ -70,6 +99,9 @@ class Router
         return str_replace('{{content}}',$viewContent,$layoutContent);
     }
 
+    /**
+     * @return false|string
+     */
     protected function layoutContent()
     {
         ob_start();
@@ -77,6 +109,10 @@ class Router
         return ob_get_clean();
     }
 
+    /**
+     * @param $view
+     * @return false|string
+     */
     protected function renderOnlyView($view)
     {
         ob_start();

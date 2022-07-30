@@ -18,8 +18,14 @@ class Application
      */
     public static string $ROOT_DIR;
 
+    /**
+     * @var Response
+     */
     public Response $response;
 
+    /**
+     * @var Application
+     */
     public static Application $app;
 
 
@@ -38,7 +44,7 @@ class Application
      * @return void
      */
     public function run() {
-        return $this->router->resolve();
+        echo $this->router->resolve();
     }
 
 }

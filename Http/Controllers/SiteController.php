@@ -8,8 +8,7 @@ class SiteController
 {
     public function contact()
     {
-        //var_dump('here');
-        return Application::$app->router->renderView('contacts');
+        return Application::$app->router->renderView('contact');
     }
 
     public function handle()
