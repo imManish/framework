@@ -16,7 +16,7 @@ class SiteController extends Controller
 
     public function handle(Request $request)
     {
-        $request = $request->getBody();
+        $request = $request->all();
         var_dump($request);
         return 'Handling submited data';
     }
