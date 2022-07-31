@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Routing\Traits;
+namespace Bundle\Routing\Traits;
 
 trait GetTrait
 {

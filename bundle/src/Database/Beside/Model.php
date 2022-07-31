@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core\Database\Beside;
+namespace Bundle\Database\Beside;
 
-use App\Core\Application;
-use App\Core\Contracts\Validation\Rules;
+use Bundle\Contracts\Validation\Rules;
+use JetBrains\PhpStorm\ArrayShape;
 
 abstract class Model implements Rules
 {
@@ -13,16 +13,16 @@ abstract class Model implements Rules
     public const RULE_MIN = 'min';
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
-    public const RULE_UNIQUE = 'unique';
+    //public const RULE_UNIQUE = 'unique';
 
     public array $errors = [];
 
     /**
      * It takes an array of data and assigns the values to the properties of the object.
      *
-     * @param mixed $data
+     * @param array $data
      */
-    public function load($data)
+    public function load(array $data)
     {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
@@ -59,7 +59,7 @@ abstract class Model implements Rules
                 if (self::RULE_MATCH === $ruleName && $value !== $this->{$rule['match']}) {
                     $this->appendError($attribute, self::RULE_MATCH, ['match' => $rule['match']]);
                 }
-                if (self::RULE_UNIQUE === $ruleName) {
+                /*if (self::RULE_UNIQUE === $ruleName) {
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $tableName = $className::tableName();
@@ -71,7 +71,7 @@ abstract class Model implements Rules
                     if ($record) {
                         $this->addErrorByRule($attribute, self::RULE_UNIQUE);
                     }
-                }
+                }*/
             }
         }
 
@@ -85,7 +85,7 @@ abstract class Model implements Rules
      * @param string $rule
      * @param mixed $params
      */
-    public function appendError(string $attribute, string $rule, $params = [])
+    public function appendError(string $attribute, string $rule, array $params = [])
     {
         $message = $this->message()[$rule] ?? '';
         foreach ($params as $key => $value) {
@@ -123,6 +123,7 @@ abstract class Model implements Rules
      *
      * @return array of messages
      */
+    #[ArrayShape([self::RULE_REQUIRED => "string", self::RULE_EMAIL => "string", self::RULE_MIN => "string", self::RULE_MAX => "string"])]
     public function message(): array
     {
         return [

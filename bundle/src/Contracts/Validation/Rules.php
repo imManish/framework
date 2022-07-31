@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Contracts\Validation;
+namespace Bundle\Contracts\Validation;
 
 // Defining a contract for the rules method.
 interface Rules

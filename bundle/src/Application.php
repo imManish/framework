@@ -1,10 +1,11 @@
 <?php
-namespace App\Core;
 
-use App\Core\Routing\Router;
-use App\Core\Http\Request;
-use App\Core\Http\Response;
-use App\Core\Routing\Controller;
+namespace Bundle;
+
+use Bundle\Http\Request;
+use Bundle\Http\Response;
+use Bundle\Routing\Controller;
+use Bundle\Routing\Router;
 
 class Application
 {

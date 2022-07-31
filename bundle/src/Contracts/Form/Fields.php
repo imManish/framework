@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Contracts\Form;
+namespace Bundle\Contracts\Form;
 
-use App\Core\Database\Beside\Model;
+use Bundle\Database\Beside\Model;
 
 // A class that is used to create a form field.
 class Fields
@@ -14,7 +14,6 @@ class Fields
     public const TYPE_PASSWORD = 'password';
 
     // A constant that is used to set the type of the field to number.
-    public const TYPE_NUMBER = 'number';
 
     // A constant that is used to set the type of the field to email.
     public const TYPE_EMAIL = 'email';
@@ -31,7 +30,7 @@ class Fields
     /**
      * This function is a constructor for the class `Attribute`.
      *
-     * @param Model model The model that the field is attached to
+     * @param Model $model
      * @param string attribute The name of the attribute to be displayed
      */
     public function __construct(Model $model, string $attribute)
@@ -54,7 +53,7 @@ class Fields
     /**
      * It sets the type of the field to password.
      *
-     * @return The object itself
+     * @return object object itself
      */
     public function passwordFiled(): object
     {
@@ -66,7 +65,7 @@ class Fields
     /**
      * It sets the type of the field to email.
      *
-     * @return The object itself
+     * @return object itself
      */
     public function emailField(): object
     {
@@ -96,7 +95,7 @@ class Fields
             $this->type,
             $this->attribute,
             $this->model->{$this->attribute},
-            'Enter '.ucfirst($this->attribute),
+            'Enter ' . ucfirst($this->attribute),
             $this->model->hasError($this->attribute) ? 'is-invalid' : 'invisible',
             $this->model->getErrorMessage($this->attribute),
             ('email' == $this->attribute) ? "We'll never share your email with anyoneelse." : ''

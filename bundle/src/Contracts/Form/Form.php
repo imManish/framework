@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Contracts\Form;
+namespace Bundle\Contracts\Form;
 
-use App\Core\Database\Beside\Model;
+use Bundle\Database\Beside\Model;
 
 class Form
 {
@@ -21,10 +21,11 @@ class Form
         return new Form();
     }
 
+
     /**
-     * @return string
+     * It prints the closing form tag
      */
-    public static function end()
+    public static function end(): void
     {
         echo '</form>';
     }
@@ -32,8 +33,7 @@ class Form
     /**
      * > It returns a new instance of the `Fields` class, passing the model and attribute to the constructor.
      *
-     * @param Model model The model that the field is being generated for
-     * @param attribute the name of the attribute to be used
+     * @param Model $model
      * @param mixed $attribute
      *
      * @return Fields a new instance of the Fields class

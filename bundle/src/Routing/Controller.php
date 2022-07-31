@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Routing;
+namespace Bundle\Routing;
 
-use App\Core\Application;
+use Bundle\Application;
 use BadMethodCallException;
 
 abstract class Controller
