@@ -2,7 +2,7 @@
 
 namespace Bundle\Routing;
 
-use Bundle\Application;
+use Bundle\Foundation\Application;
 use Bundle\Http\Request;
 use Bundle\Http\Response;
 use Bundle\Routing\Traits\GetTrait;
@@ -10,27 +10,48 @@ use Bundle\Routing\Traits\PostTrait;
 
 class Router
 {
-    use GetTrait;
-    use PostTrait;
+    use GetTrait, PostTrait;
 
+    /**
+     * @var Request
+     */
     public Request $request;
 
+    /**
+     * @var Response
+     */
     public Response $response;
 
+    /**
+     * @var array
+     */
     protected array $routes = [];
 
+    /**
+     * @var string
+     */
     private string $method = 'get';
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     */
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
     }
 
+
     /**
-     * @return array|false|mixed|string|string[]
+     * It checks if the callback is a string, if it is, it renders the view.
+     * If it's not, it checks if it's a closure, if it is, it calls the closure with the request as a parameter.
+     * If it's not, it sets the status code to 404 and renders
+     * the 404 view
+     *
+     * @return mixed The return value of the callback function.
      */
-    public function resolve()
+    public function resolve(): mixed
     {
         $path = $this->request->getPath();
         $this->method = $this->request->method();
@@ -58,14 +79,6 @@ class Router
     {
         $layoutContent = $this->layoutContent();
         $viewContent = $this->renderOnlyView($view, $params);
-
-        return str_replace('{{content}}', $viewContent, $layoutContent);
-    }
-
-    // deprecated
-    public function renderContent($viewContent): array|bool|string
-    {
-        $layoutContent = $this->layoutContent();
 
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }

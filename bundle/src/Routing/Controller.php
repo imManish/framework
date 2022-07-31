@@ -2,8 +2,8 @@
 
 namespace Bundle\Routing;
 
-use Bundle\Application;
 use BadMethodCallException;
+use Bundle\Foundation\Application;
 
 abstract class Controller
 {

@@ -1,12 +1,25 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SiteController;
-use Bundle\Application;
+use Bundle\Foundation\Application;
 
-$app = new Application(dirname(__DIR__));
+require_once __DIR__ . '/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
+
+$config = [
+    'DB' => [
+        'DB_DNS'=> $_ENV['DB_DNS'],
+        'DB_USERNAME'=> $_ENV['DB_USERNAME'],
+        'DB_PASSWORD'=> $_ENV['DB_PASSWORD'],
+
+    ]
+];
+
+
+$app = new Application(dirname(__DIR__), $config);
 
 $app->router->get('/', 'home');
 
