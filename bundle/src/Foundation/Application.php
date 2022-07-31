@@ -1,7 +1,8 @@
 <?php
 
-namespace Bundle;
+namespace Bundle\Foundation;
 
+use Bundle\Database\Connection;
 use Bundle\Http\Request;
 use Bundle\Http\Response;
 use Bundle\Routing\Controller;
@@ -44,17 +45,23 @@ class Application
      */
     public string $layout = '_base';
 
+    /**
+     * @var Connection
+     */
+    public Connection $connection;
+
 
     /**
      * construct and initialize router.
      */
-    public function __construct($rootPath)
+    public function __construct($rootPath,array $config)
     {
         self::$app = $this;
         self::$ROOT_DIR = $rootPath;
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
+        $this->connection = new Connection($config['DB']);
     }
 
 

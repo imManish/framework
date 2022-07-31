@@ -1,16 +1,20 @@
 {
-    "name": "knight/knight",
-    "description": "This is knight framework",
+    "name": "console/knight",
+    "description": "This is console framework",
     "license": "MIT",
     "require-dev": {
-        "php" : "8.*",
-        "squizlabs/php_codesniffer": "3.*"
+        "php" : "^8.0",
+        "squizlabs/php_codesniffer": "3.*",
+        "vlucas/phpdotenv": "^5.4.1"
     },
     "autoload": {
         "psr-4": {
             "App\\": "app/",
             "Bundle\\": "bundle/src/"
-        }
+        },
+        "files": [
+            "config/database.php"
+        ]
     },
     "authors": [
         {

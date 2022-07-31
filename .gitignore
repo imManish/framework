@@ -1,2 +1,9 @@
+.DS_Store
 vendor
 .idea
+app/.DS_Store
+bundle/.DS_Store
+bundle/src/.DS_Store
+resources/.DS_Store
+resources/views/.DS_Store
+.env
