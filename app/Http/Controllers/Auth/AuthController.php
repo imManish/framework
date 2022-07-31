@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Core\Http\Request;
-use App\Core\Routing\Controller;
 use App\Models\User;
+use Bundle\Http\Request;
+use Bundle\Routing\Controller;
+//use Bundle\Http\Controllers\Auth\view;
 
 class AuthController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return array|bool|string
+     */
     public function login(Request $request): array|bool|string
     {
         $this->layout('_auth');
@@ -28,10 +33,14 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @return array|bool|string
+     */
     public function register(): array|bool|string
     {
         $this->layout('_auth');
 
+        /** @var view $this */
         return $this->view('auth/register');
     }
 }

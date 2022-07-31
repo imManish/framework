@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Core\Routing;
+namespace Bundle\Routing;
 
-use App\Core\Application;
-use App\Core\Http\Request;
-use App\Core\Http\Response;
-use App\Core\Routing\Traits\GetTrait;
-use App\Core\Routing\Traits\PostTrait;
+use Bundle\Application;
+use Bundle\Http\Request;
+use Bundle\Http\Response;
+use Bundle\Routing\Traits\GetTrait;
+use Bundle\Routing\Traits\PostTrait;
 
 class Router
 {
@@ -81,7 +81,7 @@ class Router
 
         ob_start();
 
-        include_once Application::$ROOT_DIR."/resources/views/layouts/{$layout}.knight.html";
+        include_once Application::$ROOT_DIR . "/resources/views/layouts/{$layout}.knight.html";
 
         return ob_get_clean();
     }
@@ -101,7 +101,7 @@ class Router
 
         ob_start();
 
-        include_once Application::$ROOT_DIR."/resources/views/{$view}.knight.html";
+        include_once Application::$ROOT_DIR . "/resources/views/{$view}.knight.html";
 
         return ob_get_clean();
     }

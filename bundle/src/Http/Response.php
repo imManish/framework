@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Http;
+namespace Bundle\Http;
 
 // A class that is used to set the status code of the response.
 class Response

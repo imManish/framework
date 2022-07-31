@@ -2,12 +2,18 @@
 
 namespace App\Models;
 
-use App\Core\Database\Beside\Model;
+use Bundle\Database\Beside\Model;
 
 class User extends Model
 {
+    /**
+     * @var string
+     */
     public string $email = '';
 
+    /**
+     * @var string
+     */
     public string $password = '';
 
     /**
