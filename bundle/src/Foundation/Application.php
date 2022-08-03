@@ -2,59 +2,38 @@
 
 namespace Bundle\Foundation;
 
+use Bundle\Contracts\Foundation\Application as ApplicationContract;
 use Bundle\Database\Connection;
 use Bundle\Http\Request;
 use Bundle\Http\Response;
 use Bundle\Routing\Controller;
 use Bundle\Routing\Router;
 
-class Application
+class Application extends Container
 {
-    /**
-     * @var Router
-     */
+
+    public const VERSION = '1.0.0';
+
     public Router $router;
 
-    /**
-     * @var Request
-     */
     public Request $request;
 
-    /**
-     * @var string
-     */
     public static string $ROOT_DIR;
 
-    /**
-     * @var Response
-     */
     public Response $response;
 
-    /**
-     * @var Application
-     */
-    public static Application $app;
-
-    /**
-     * @var Controller
-     */
     public Controller $controller;
 
-    /**
-     * @var string
-     */
     public string $layout = '_base';
 
-    /**
-     * @var Connection
-     */
     public Connection $connection;
-
 
     /**
      * construct and initialize router.
+     *
+     * @param mixed $rootPath
      */
-    public function __construct($rootPath,array $config)
+    public function __construct($rootPath, array $config)
     {
         self::$app = $this;
         self::$ROOT_DIR = $rootPath;
@@ -64,11 +43,10 @@ class Application
         $this->connection = new Connection($config['DB']);
     }
 
-
     /**
      * The `run()` function is the entry point of the application.
      * It calls the `resolve()` function of the `Router` class,
-     * which is responsible for resolving the request
+     * which is responsible for resolving the request.
      */
     public function run(): void
     {
@@ -76,7 +54,9 @@ class Application
     }
 
     /**
-     * @return Controller
+     * > This function returns the controller.
+     *
+     * @return Controller the controller object
      */
     public function getController(): Controller
     {
@@ -84,10 +64,22 @@ class Application
     }
 
     /**
-     * @param Controller $controller
+     * > This function sets the controller property to the controller object passed in.
+     *
+     * @param Controller controller The controller that is being called
      */
     public function setController(Controller $controller): void
     {
         $this->controller = $controller;
+    }
+
+    /**
+     * Get the version number of the application.
+     *
+     * @return string
+     */
+    public function version()
+    {
+
     }
 }

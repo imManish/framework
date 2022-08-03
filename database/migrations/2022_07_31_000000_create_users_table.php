@@ -1,14 +1,43 @@
 <?php
 
-class CreateUsersTable
+use Bundle\Database\Migrations\Migration;
+//use Bundle\Database\Schema\Blueprint;
+use Bundle\Support\Facades\Schema;
+
+class CreateUsersTable extends Migration
 {
-    public function up()
+
+    /**
+     * It creates a table called users with the columns id, email, firstname, lastname, status, and created_at.
+     */
+    public function up(): void
     {
-        echo  "up" . PHP_EOL;
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('email')->unique();
+            $table->string('firstname');
+            $table->text('lastname');
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
+            $table->timestamp('created_at')->useCurrent();
+        });
+
+        /*$this->query = 'CREATE TABLE users (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                email VARCHAR(255) NOT NULL,
+                firstname VARCHAR(255) NOT NULL,
+                lastname VARCHAR(255) NOT NULL,
+                status TINYINT DEFAULT 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )  ENGINE=INNODB;';
+        $this->connection->pdo->exec($this->query);*/
     }
 
-    public function down()
+    /**
+     * It drops the table users.
+     */
+    public function down(): void
     {
-        echo 'down' . PHP_EOL;
+        $this->query = 'DROP TABLE users;';
+        $this->connection->pdo->exec($this->query);
     }
 }

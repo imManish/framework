@@ -10,10 +10,12 @@ $dotenv->load();
 
 $config = [
     'DB' => [
-        'DB_DNS'=> $_ENV['DB_DNS'],
+        'DB_DRIVER'=> $_ENV['DB_DRIVER'],
+        'DB_HOST'=> $_ENV['DB_HOST'],
+        'DB_PORT'=> $_ENV['DB_PORT'],
+        'DB_DATABASE'=> $_ENV['DB_DATABASE'],
         'DB_USERNAME'=> $_ENV['DB_USERNAME'],
         'DB_PASSWORD'=> $_ENV['DB_PASSWORD'],
-
     ]
 ];
 

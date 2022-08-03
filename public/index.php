@@ -4,20 +4,20 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SiteController;
 use Bundle\Foundation\Application;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-
 $config = [
     'DB' => [
-        'DB_DNS'=> $_ENV['DB_DNS'],
-        'DB_USERNAME'=> $_ENV['DB_USERNAME'],
-        'DB_PASSWORD'=> $_ENV['DB_PASSWORD'],
-
-    ]
+        'DB_DRIVER' => $_ENV['DB_DRIVER'],
+        'DB_HOST' => $_ENV['DB_HOST'],
+        'DB_PORT' => $_ENV['DB_PORT'],
+        'DB_DATABASE' => $_ENV['DB_DATABASE'],
+        'DB_USERNAME' => $_ENV['DB_USERNAME'],
+        'DB_PASSWORD' => $_ENV['DB_PASSWORD'],
+    ],
 ];
-
 
 $app = new Application(dirname(__DIR__), $config);
 
